@@ -1,4 +1,4 @@
-export const Players = []; //Player = {name: string, score: int}
+export const Players = []; //Player = {name: string, score: int, centerPos: int}
 export const Position = {
 	S: null,
 	N: null,
@@ -49,16 +49,17 @@ function ballOnBallBounce(ball1, ball2) {
     return;
 }
 
-function addPlayer(name) {
+export function addPlayer(name) {
 	var newPlayer = {
 		name: name,
-		score: 0
+		score: 0,
+		centerPos: 50
 	};
 	Players.push(newPlayer);
 	addPlayerToPosition(newPlayer);
 }
 
-function removePlayer(name) {
+export function removePlayer(name) {
 	var index = -1;
 	for (var i = 0; i < Players.length; i++) {
 		if (Players[i].name == name) {
