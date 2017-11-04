@@ -1,5 +1,5 @@
 import {Ball, moveBall} from './ball';
-import {addPlayer, removeAllPlayers, fetchGameState, removePlayer} from './game';
+import {addPlayer, removeAllPlayers, fetchGameState, removePlayer, movePlayer} from './game';
 import {Players} from "./players";
 
 const app = require('express')();
@@ -14,7 +14,10 @@ app.get('/', function(req, res) {
         ", xspeed: " + Ball.xspeed +
         ", yspeed: " + Ball.yspeed +
         "<br>" +
-        "score: " + JSON.stringify(Players)
+        "score: " + JSON.stringify(Players) +
+        "<br/><br/><hr/>" +
+        "Game state is: <br/>" +
+        fetchGameState()
     );
 });
 
@@ -40,6 +43,11 @@ io.on('connection', function(socket){
         console.log('User disconnected on socket: ' + socket.id);
         removePlayer(socket.id);
     });
+
+    socket.on('updatePosition', function(direction){
+        console.log('Player ' + socket.id + ' wants to move in a direction: ' + direction)
+        movePlayer(socket.id, direction)
+    })
 });
 
 setInterval(function() {

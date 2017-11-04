@@ -158,7 +158,7 @@ function addPlayerToPosition(player) {
 export function movePlayer(id, value) {
 	for (let i = 0; i < Players.length; i++) {
 		let p = Players[i];
-		if(p.id == id) {
+		if(p.id === id) {
 			p.centerPos += value;
 			if(p.centerPos > 90) {
 				p.centerPos = 90;
