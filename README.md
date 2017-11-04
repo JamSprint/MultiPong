@@ -1,2 +1,2 @@
 # MultiPong
-Play multiplayer pong 
+Play multiplayer pong with a NodeJS server
