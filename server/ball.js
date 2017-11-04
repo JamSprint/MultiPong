@@ -1,16 +1,11 @@
+import {Score} from './score';
+
 export const Ball = {
     x: 50.0,
     y: 50.0,
     xspeed: 0.0,
     yspeed: 0.0,
     rad: 1.0
-};
-
-var points = {
-    up: 0,
-    right: 0,
-    left: 0,
-    down: 0
 };
 
 reset();
@@ -27,7 +22,7 @@ function moveBall() {
     Ball.x = Ball.x + Ball.xspeed;
     if (Ball.x > 100) {
         if(true) { //right side has player
-            points.right++;
+            Score.right++;
             reset();
         } else {
             Ball.xspeed = -1 * Ball.xspeed;

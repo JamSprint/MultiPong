@@ -1,4 +1,5 @@
 import {Ball, moveBall} from './ball';
+import {Score} from './score';
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -9,7 +10,10 @@ app.get('/', function(req, res){
         + "x: " + Ball.x +
         ", y: " + Ball.y +
         ", xspeed: " + Ball.xspeed +
-        ", yspeed: " + Ball.yspeed);
+        ", yspeed: " + Ball.yspeed +
+        "<br>" +
+        "score: " + JSON.stringify(Score)
+    );
 });
 
 http.listen(port, (err) => {
