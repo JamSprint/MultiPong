@@ -1,7 +1,9 @@
 import {Ball, moveBall} from './ball';
+import {Players} from './game';
 
 const app = require('express')();
 const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const port = 3000;
 
 app.get('/', function(req, res){
@@ -9,7 +11,17 @@ app.get('/', function(req, res){
         + "x: " + Ball.x +
         ", y: " + Ball.y +
         ", xspeed: " + Ball.xspeed +
-        ", yspeed: " + Ball.yspeed);
+        ", yspeed: " + Ball.yspeed +
+        "<br>" +
+        "score: " + JSON.stringify(Players)
+    );
+});
+
+io.on('connection', function(socket){
+    console.log('a user connected on socket: ' + socket);
+    socket.on('disconnect', function(){
+        console.log('user disconnected on socket: ' + socket);
+    });
 });
 
 http.listen(port, (err) => {
