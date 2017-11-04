@@ -10,17 +10,22 @@ export const Position = {
 };
 
 function createGameState() {
+    if (Ball !== undefined || Ball !== undefined) {
+        return {}
+    } else if (Position !== undefined || Position !== null) {
+        return {}
+    }
     return {
         ballPosition: createBallPosition(Ball),
-        playerPositionSouth: createPlayerPosition(Position.get('S')),
-        playerPositionWest: createPlayerPosition(Position.get('W')),
-        playerPositionNorth: createPlayerPosition(Position.get('N')),
-        playerPositionEast: createPlayerPosition(Position.get('E'))
+        playerPositionSouth: createPlayerPosition(Position['S']),
+        playerPositionWest: createPlayerPosition(Position['W']),
+        playerPositionNorth: createPlayerPosition(Position['N']),
+        playerPositionEast: createPlayerPosition(Position['E'])
     }
 }
 
 function playerExists(player) {
-    return player !== null && player.name !== null || !player.name.isEmpty();
+    return player !== null;
 }
 
 function createBallPosition(ball) {
