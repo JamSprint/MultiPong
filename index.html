@@ -8,16 +8,61 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="css/normalize.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="http://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+
+  <style>
+    .mp-typography--text__center {
+        text-align: center;
+    }
+  </style>
+
+  <script src="https://unpkg.com/vue"></script>
+
 </head>
 
 <body>
 
-  <p>Hello, world!</p>
+  <div id="multipong" class="container">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="js/script.js"></script>
+    <!-- Headline -->
+    <div class="row">
+      <div class="column mp-typography--text__center">
+        <h1>Join your friends in multiplayer Pong!</h1>
+      </div>
+    </div>
+
+    <!-- Welcome button -->
+    <div class="row">
+      <div class="column">
+        <form id="registration">
+          <fieldset>
+            <label for="name">Name</label>
+            <input type="text" placeholder="1337 gamer" id="name" v-model="player">
+            <input class="button-primary" type="submit" value="Join a game"  v-on:click="joinGame">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <script>
+
+      var app = new Vue({
+        el: '#multipong',
+        data: {
+          player: ''
+        },
+        methods: {
+          joinGame: function () {
+            alert('Joining the game ...')
+          }
+        }
+      });
+
+    </script>
+
+  </div>
 </body>
 
 </html>
