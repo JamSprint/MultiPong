@@ -29,8 +29,8 @@ io.on('connection', function(socket){
         addPlayer(socket.id, playerName);
     });
 
-    socket.on('leave', function(playerName) {
-        console.log('Player ' + playerName + ' (' + socket.id + ') left the game');
+    socket.on('leave', function() {
+        console.log('Player left the game with socket ID: ' + socket.id);
         removePlayer(socket.id);
     });
 
