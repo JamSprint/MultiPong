@@ -1,3 +1,5 @@
+import {Ball, moveBall} from './js/ball';
+
 const app = require('express')();
 const http = require('http').Server(app);
 const port = 3000;
@@ -5,16 +7,22 @@ const port = 3000;
 const requestHandler = (request, response) => {
     console.log(request.url);
     response.end(
-    	"x: " + ball.x + 
-    	", y: " + ball.y + 
-    	", xspeed: " + ball.xspeed + 
-    	", yspeed: " + ball.yspeed
+    	"x: " + Ball.x +
+    	", y: " + Ball.y +
+    	", xspeed: " + Ball.xspeed +
+    	", yspeed: " + Ball.yspeed
     );
 };
 
-const server = http.createServer(requestHandler);
+app.get('/', function(req, res){
+    res.send('<h1>MultiPong server!</h1>'
+        + "x: " + Ball.x +
+        ", y: " + Ball.y +
+        ", xspeed: " + Ball.xspeed +
+        ", yspeed: " + Ball.yspeed);
+});
 
-server.listen(port, (err) => {
+http.listen(port, (err) => {
     if (err) {
         return console.log('something bad happened', err);
     }

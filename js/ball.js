@@ -1,4 +1,4 @@
-var ball = {
+export const Ball = {
     x: 50.0,
     y: 50.0,
     xspeed: 0.98,
@@ -8,21 +8,21 @@ var ball = {
 
 setInterval(moveBall, 33); // 33 milliseconds = ~ 30 frames per sec
 
-function moveBall() {
-    ball.x = ball.x + ball.xspeed;
-    if (ball.x > 100) {
-        ball.xspeed = -1 * ball.xspeed;
-        ball.x = 100 - (ball.x % 100);
-    } else if (ball.x < 0) {
-        ball.xspeed = -1 * ball.xspeed;
-        ball.x = (ball.x % 100);
+export function moveBall() {
+    Ball.x = Ball.x + Ball.xspeed;
+    if (Ball.x > 100) {
+        Ball.xspeed = -1 * Ball.xspeed;
+        Ball.x = 100 - (Ball.x % 100);
+    } else if (Ball.x < 0) {
+        Ball.xspeed = -1 * Ball.xspeed;
+        Ball.x = (Ball.x % 100);
     }
-    ball.y = ball.y + ball.yspeed;
-    if (ball.y > 100) {
-        ball.yspeed = -1 * ball.yspeed;
-        ball.y = 100 - (ball.y % 100);
-    } else if (ball.y < 0) {
-        ball.yspeed = -1 * ball.yspeed;
-        ball.y = (ball.y % 100);
+    Ball.y = Ball.y + Ball.yspeed;
+    if (Ball.y > 100) {
+        Ball.yspeed = -1 * Ball.yspeed;
+        Ball.y = 100 - (Ball.y % 100);
+    } else if (Ball.y < 0) {
+        Ball.yspeed = -1 * Ball.yspeed;
+        Ball.y = (Ball.y % 100);
     }
 }
