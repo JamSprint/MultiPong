@@ -11,10 +11,10 @@ function createGameState() {
     }
     return {
         ballPosition: createBallPosition(Ball),
-        playerPositionSouth: createPlayerPosition(Position['S']),
-        playerPositionWest: createPlayerPosition(Position['W']),
-        playerPositionNorth: createPlayerPosition(Position['N']),
-        playerPositionEast: createPlayerPosition(Position['E'])
+        playerPositionSouth: createPlayerPosition(Position.S),
+        playerPositionWest: createPlayerPosition(Position.W),
+        playerPositionNorth: createPlayerPosition(Position.N),
+        playerPositionEast: createPlayerPosition(Position.E)
     }
 }
 
