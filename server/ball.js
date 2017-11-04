@@ -41,6 +41,8 @@ function reset() {
     Ball.y = 50.0;
     Ball.xspeed = Math.random()*2.0-1;
     Ball.yspeed = Math.random()*2.0-1;
+    //Ball.xspeed = 0.0;
+    //Ball.yspeed = 1.0;
     log("\t\t" + JSON.stringify(Players));
 }
 
@@ -56,83 +58,64 @@ function moveDebugPlayer() {
 
 }
 
-function moveBall() {
-    Ball.x = Ball.x + Ball.xspeed;
-    if (Ball.x > 100) {
-        log("Ball exiting E on y=" + Ball.y);
-        if(Position.E) {
-            if(Math.abs(Ball.y-Position.E.centerPos) <= 10) {
-                log("\tSAVE!!!!!");
-                Ball.xspeed = -1 * Ball.xspeed;
-                Ball.x = 100 - (Ball.x % 100);
-                accelerate();
-            } else {
-                log("\tPoint!");
-                Position.E.score++;
-                reset();
-            }
-        } else {
-            log("\tBounce");
-            Ball.xspeed = -1 * Ball.xspeed;
+function invert() {
+    if(Ball.x > 100 || Ball.x < 0) {
+        Ball.xspeed = -1 * Ball.xspeed;
+        if(Ball.x > 100) {
             Ball.x = 100 - (Ball.x % 100);
-        }
-    } else if (Ball.x < 0) {
-        log("Ball exiting W on y=" + Ball.y);
-        if(Position.W) {
-            if(Math.abs(Ball.y-Position.W.centerPos) <= 10) {
-                log("\tSAVE!!!!!");
-                Ball.xspeed = -1 * Ball.xspeed;
-                Ball.x = (Ball.x % 100);
-                accelerate();
-            } else {
-                log("\tPoint!");
-                Position.W.score++;
-                reset();
-            }
         } else {
-            log("\tBounce");
-            Ball.xspeed = -1 * Ball.xspeed;
             Ball.x = (Ball.x % 100);
         }
     }
-    Ball.y = Ball.y + Ball.yspeed;
-    if (Ball.y > 100) {
-        log("Ball exiting N on x=" + Ball.x);
-        if(Position.N) {
-            if(Math.abs(Ball.x-Position.N.centerPos) <= 10) {
-                log("\tSAVE!!!!!");
-                Ball.yspeed = -1 * Ball.yspeed;
-                Ball.y = 100 - (Ball.y % 100);
-                accelerate();
-            } else {
-                log("\tPoint!");
-                Position.N.score++;
-                reset();
-            }
-        } else {
-            log("\tBounce");
-            Ball.yspeed = -1 * Ball.yspeed;
+    if(Ball.y > 100 || Ball.y < 0) {
+        Ball.yspeed = -1 * Ball.yspeed;
+        if(Ball.y > 100) {
             Ball.y = 100 - (Ball.y % 100);
-        }
-    } else if (Ball.y < 0) {
-        log("Ball exiting S on x=" + Ball.x);
-        if(Position.S) {
-            if(Math.abs(Ball.x-Position.S.centerPos) <= 10) {
-                log("\tSAVE!!!!!");
-                Ball.yspeed = -1 * Ball.yspeed;
-                Ball.y = (Ball.y % 100);
-                accelerate();
-            } else {
-                log("\tPoint!");
-                Position.S.score++;
-                reset();
-            }
         } else {
-            log("\tBounce");
-            Ball.yspeed = -1 * Ball.yspeed;
             Ball.y = (Ball.y % 100);
         }
     }
+}
+
+function moveBall() {
+    Ball.x = Ball.x + Ball.xspeed;
+    Ball.y = Ball.y + Ball.yspeed;
+    let oob = [];
+    if (Ball.x > 100 && Position.E) {
+        if(Math.abs(Ball.y-Position.E.centerPos) <= 10) {
+            accelerate();
+        } else {
+            oob.push(Position.E);
+        }
+    } else if (Ball.x < 0 && Position.W) {
+        if(Math.abs(Ball.y-Position.W.centerPos) <= 10) {
+            accelerate();
+        } else {
+            oob.push(Position.W);
+        }
+    }
+    if (Ball.y > 100 && Position.N) {
+        if(Math.abs(Ball.x-Position.N.centerPos) <= 10) {
+            accelerate();
+        } else {
+            oob.push(Position.N);
+        }
+    } 
+    if (Ball.y < 0 && Position.S) {
+        if(Math.abs(Ball.x-Position.S.centerPos) <= 10) {
+            accelerate();
+        } else {
+            oob.push(Position.S);
+        }
+    }
+    for (let i = 0; i < oob.length; i++) {
+        oob[i].score++;
+    }
+    if(oob.length > 0) {
+        reset();
+        return;
+    }
+    invert();
     render();
 }
 
