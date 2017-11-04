@@ -38,7 +38,7 @@ function createPlayerPosition(player) {
     }
 }
 
-export function broadcastGameState() {
+export function fetchGameState() {
     return createGameState();
 }
 

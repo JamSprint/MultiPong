@@ -1,5 +1,5 @@
 import {Ball, moveBall} from './ball';
-import {addPlayer, removeAllPlayers, broadcastGameState, removePlayer} from './game';
+import {addPlayer, removeAllPlayers, fetchGameState, removePlayer} from './game';
 import {Players} from "./players";
 
 const app = require('express')();
@@ -22,12 +22,17 @@ io.on('connection', function(socket){
     console.log('A user connected with ID: ' + socket.id);
 
     socket.on('join', function(playerName) {
-        console.log('User ' + playerName + ' joined the game with socket ID: ' + socket.id);
+        console.log('Player ' + playerName + ' joined the game with socket ID: ' + socket.id);
         addPlayer(socket.id, playerName);
     });
 
+    socket.on('leave', function(playerName) {
+        console.log('Player ' + playerName + ' (' + socket.id + ') left the game');
+        removePlayer(socket.id);
+    });
+
     socket.on('kickAll', function(){
-        console.log('Removing all players from the game');
+        console.log('Removing all players from the game: ' + Players.S.name + ', ' + Players.W.name + ', ' + Players.N.name + ', ' + Players.E.name);
         removeAllPlayers();
     });
 
@@ -38,7 +43,7 @@ io.on('connection', function(socket){
 });
 
 setInterval(function() {
-    let gameState = broadcastGameState();
+    let gameState = fetchGameState();
     io.sockets.emit('gameState', gameState);
 }, 33);
 
