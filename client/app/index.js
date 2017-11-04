@@ -1,5 +1,7 @@
 import angular from 'angular';
 
+import io from 'socket.io-client';
+
 export const app = angular.module('multipong', []);
 
 /**
@@ -10,5 +12,5 @@ angular.element(document).ready(function () {
         strictDi: false
     });
 
-    alert('done');
+    const socket = io('http://192.168.1.233:3000');
 });
