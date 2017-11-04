@@ -1,3 +1,5 @@
+import {Ball} from "./ball";
+
 export const Players = []; //Player = {name: string, score: int, centerPos: int}
 export const Position = {
 	S: null,
@@ -6,6 +8,39 @@ export const Position = {
 	W: null,
 	queue: []
 };
+
+function createGameState() {
+    return {
+        ballPosition: createBallPosition(Ball),
+        playerPositionSouth: createPlayerPosition(Position.get('S')),
+        playerPositionWest: createPlayerPosition(Position.get('W')),
+        playerPositionNorth: createPlayerPosition(Position.get('N')),
+        playerPositionEast: createPlayerPosition(Position.get('E'))
+    }
+}
+
+function playerExists(player) {
+    return player !== null && player.name !== null || !player.name.isEmpty();
+}
+
+function createBallPosition(ball) {
+    return {
+        x: ball.x,
+        y: ball.y
+    }
+}
+
+function createPlayerPosition(player) {
+    return {
+        playerExists: playerExists(player),
+        x: player.x,
+        y: player.y
+    }
+}
+
+export function broadcastGameState() {
+    return createGameState();
+}
 
 function ballOnBallCollide(ball1, ball2) {
     var distanceSquared = Math.pow((ball1.x-ball2.x), 2)+Math.pow((ball1.y-ball2.y), 2);

@@ -1,12 +1,13 @@
 import {Ball, moveBall} from './ball';
-import {Players} from './game';
+import {broadcastGameState, Players} from './game';
+import {getGameState} from "./game";
 
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = 3000;
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
     res.send('<h1>MultiPong server!</h1>'
         + "x: " + Ball.x +
         ", y: " + Ball.y +
@@ -18,7 +19,12 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    console.log('a user connected on socket: ' + socket);
+    console.log('a user connected');
+    socket.broadcast.emit(broadcastGameState());
+    socket.on('request game state', function(getGameState){
+        socket.broadcast.emit(broadcastGameState());
+        console.log('Sending game state');
+    });
     socket.on('disconnect', function(){
         console.log('user disconnected on socket: ' + socket);
     });
