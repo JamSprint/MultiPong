@@ -27,12 +27,13 @@ io.on('connection', function(socket){
     });
 
     socket.on('kickAll', function(){
+        console.log('Removing all players from the game');
         removeAllPlayers();
     });
 
     socket.on('disconnect', function(){
-        removePlayer(socket.id);
         console.log('User disconnected on socket: ' + socket.id);
+        removePlayer(socket.id);
     });
 });
 
