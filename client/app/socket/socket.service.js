@@ -33,12 +33,10 @@ export default () => {
             }
         },
         leave: (name) => {
-            if (!socket) {
-                setupServerConnection();
-                setupServerCallbacks();
+            if (socket) {
                 leave(name);
             } else {
-                alert('already connected, bail')
+                alert('user hasnt\'t joined the game, bail')
             }
         }
     }
