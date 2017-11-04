@@ -1,5 +1,5 @@
 import {Ball, moveBall} from './ball';
-import {broadcastGameState} from './game';
+import {addPlayer, removeAllPlayers, broadcastGameState, removePlayer} from './game';
 import {Players} from "./players";
 
 const app = require('express')();
@@ -19,9 +19,20 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket){
-    console.log('a user connected');
+    console.log('A user connected with ID: ' + socket.id);
+
+    socket.on('join', function(playerName) {
+        console.log('User ' + playerName + ' joined the game with socket ID: ' + socket.id);
+        addPlayer(socket.id, playerName);
+    });
+
+    socket.on('kickAll', function(){
+        removeAllPlayers();
+    });
+
     socket.on('disconnect', function(){
-        console.log('user disconnected on socket: ' + socket);
+        removePlayer(socket.id);
+        console.log('User disconnected on socket: ' + socket.id);
     });
 });
 

@@ -2,7 +2,7 @@ import {addPlayer, removePlayer} from './game';
 import {Position} from "./position";
 import {Players} from "./players";
 
-var DEBUG = true;
+var DEBUG = false;
 var RENDER = false;
 
 export const Ball = {

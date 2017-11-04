@@ -84,8 +84,9 @@ function ballOnBallBounce(ball1, ball2) {
     return;
 }
 
-export function addPlayer(name) {
+export function addPlayer(id, name) {
 	var newPlayer = {
+	    id: id,
 		name: name,
 		score: 0,
 		centerPos: 50
@@ -94,18 +95,26 @@ export function addPlayer(name) {
 	addPlayerToPosition(newPlayer);
 }
 
-export function removePlayer(name) {
-	var index = -1;
-	for (var i = 0; i < Players.length; i++) {
-		if (Players[i].name == name) {
+export function removePlayer(id) {
+    let index = -1;
+    for (let i = 0; i < Players.length; i++) {
+		if (Players[i].id === id) {
 			index = i;
-			removePlayerFromPosition(Players[i])
+			removePlayerFromPosition(Players[i]);
 			break;
 		}
 	}
-	if (index != -1) {
+	if (index !== -1) {
 		Players.splice(index, 1);
 	}
+}
+
+export function removeAllPlayers() {
+    for (let i = 0; i < Players.length; i++) {
+        index = i;
+        removePlayerFromPosition(Players[i]);
+        break;
+    }
 }
 
 function removePlayerFromPosition(player) {
