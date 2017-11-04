@@ -1,18 +1,12 @@
 import {Ball} from "./ball";
-
-export const Players = []; //Player = {name: string, score: int, centerPos: int}
-export const Position = {
-	S: null,
-	N: null,
-	E: null,
-	W: null,
-	queue: []
-};
+import {Position} from "./position";
+import {Players} from "./players";
 
 function createGameState() {
-    if (Ball !== undefined || Ball !== undefined) {
+    if (Ball === undefined || Ball === null) {
+        console.log(Ball);
         return {}
-    } else if (Position !== undefined || Position !== null) {
+    } else if (Position === undefined || Position === null) {
         return {}
     }
     return {
@@ -36,10 +30,11 @@ function createBallPosition(ball) {
 }
 
 function createPlayerPosition(player) {
+    const doesPlayerExist = playerExists(player);
     return {
-        playerExists: playerExists(player),
-        x: player.x,
-        y: player.y
+        playerExists: doesPlayerExist,
+        x: doesPlayerExist ? player.x : 0,
+        y: doesPlayerExist ? player.y : 0
     }
 }
 

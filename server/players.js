@@ -1,0 +1,1 @@
+export let Players = []; //Player = {name: string, score: int, centerPos: int}

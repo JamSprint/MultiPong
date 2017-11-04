@@ -1,6 +1,8 @@
-import {Position, Players, addPlayer, removePlayer} from './game';
+import {addPlayer, removePlayer} from './game';
+import {Position} from "./position";
+import {Players} from "./players";
 
-var DEBUG = false;
+var DEBUG = true;
 var RENDER = false;
 
 export const Ball = {

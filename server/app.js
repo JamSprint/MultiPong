@@ -1,6 +1,6 @@
 import {Ball, moveBall} from './ball';
-import {broadcastGameState, Players} from './game';
-import {getGameState} from "./game";
+import {broadcastGameState} from './game';
+import {Players} from "./players";
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -20,14 +20,15 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket){
     console.log('a user connected');
-    socket.broadcast.emit(broadcastGameState());
-    setInterval(function() {
-        io.sockets.emit('gameState', broadcastGameState());
-    }, 33);
     socket.on('disconnect', function(){
         console.log('user disconnected on socket: ' + socket);
     });
 });
+
+setInterval(function() {
+    let gameState = broadcastGameState();
+    io.sockets.emit('gameState', gameState);
+}, 33);
 
 http.listen(port, (err) => {
     if (err) {
