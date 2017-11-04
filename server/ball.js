@@ -1,7 +1,7 @@
 import {Position, Players, addPlayer, removePlayer} from './game';
 
-var DEBUG = true;
-var RENDER = true;
+var DEBUG = false;
+var RENDER = false;
 
 export const Ball = {
     x: 50.0,

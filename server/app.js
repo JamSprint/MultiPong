@@ -21,10 +21,9 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket){
     console.log('a user connected');
     socket.broadcast.emit(broadcastGameState());
-    socket.on('getGameState', function(){
-        socket.broadcast.emit(broadcastGameState());
-        console.log('Sending game state');
-    });
+    setInterval(function() {
+        io.sockets.emit('gameState', broadcastGameState());
+    }, 33);
     socket.on('disconnect', function(){
         console.log('user disconnected on socket: ' + socket);
     });
