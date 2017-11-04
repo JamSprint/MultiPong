@@ -33,8 +33,7 @@ function createPlayerPosition(player) {
     const doesPlayerExist = playerExists(player);
     return {
         playerExists: doesPlayerExist,
-        x: doesPlayerExist ? player.x : 0,
-        y: doesPlayerExist ? player.y : 0
+        centerPos: doesPlayerExist ? player.centerPos : 0
     }
 }
 
