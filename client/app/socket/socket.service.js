@@ -10,6 +10,10 @@ export default () => {
         socket.emit('join', name);
     };
 
+    const leave = (name) => {
+        socket.emit('leave', name);
+    };
+
     const setupServerConnection = () => {
         socket = io('http://192.168.1.233:3000');
     };
@@ -20,12 +24,19 @@ export default () => {
 
     return {
         join: (name) => {
-
             if (!socket) {
                 setupServerConnection();
                 setupServerCallbacks();
-
                 join(name);
+            } else {
+                alert('already connected, bail')
+            }
+        },
+        leave: (name) => {
+            if (!socket) {
+                setupServerConnection();
+                setupServerCallbacks();
+                leave(name);
             } else {
                 alert('already connected, bail')
             }
