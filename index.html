@@ -8,16 +8,37 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="css/normalize.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" href="http://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+  <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+
+  <style>
+    .mp-typography--text__center {
+        text-align: center;
+    }
+  </style>
+
 </head>
 
 <body>
 
-  <p>Hello, world!</p>
+  <div class="container">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="js/script.js"></script>
+    <!-- Headline -->
+    <div class="row">
+      <div class="column mp-typography--text__center">
+        <h1>Join your friends in multiplayer Pong!</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column mp-typography--text__center">
+          <a class="button" href="#">Join a game</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="file://multipong.css"></script>
 </body>
 
 </html>
