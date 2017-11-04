@@ -1,6 +1,7 @@
 import {Position, Players, addPlayer, removePlayer} from './game';
 
 var DEBUG = true;
+var RENDER = true;
 
 export const Ball = {
     x: 50.0,
@@ -13,6 +14,9 @@ export const Ball = {
 resetPlayers();
 reset();
 setInterval(moveBall, 33); // 33 milliseconds = ~ 30 frames per sec
+if(DEBUG) {
+    setInterval(movePlayer, 100);
+}
 
 function resetPlayers() {
     if (DEBUG) {
@@ -38,6 +42,11 @@ function reset() {
     Ball.xspeed = Math.random()*2.0-1;
     Ball.yspeed = Math.random()*2.0-1;
     log("\t\t" + JSON.stringify(Players));
+}
+
+function movePlayer() {
+
+
 }
 
 function moveBall() {
@@ -113,10 +122,46 @@ function moveBall() {
             Ball.y = (Ball.y % 100);
         }
     }
+    render();
 }
 
 function log(str) {
-    if (DEBUG) {
+    if (DEBUG && !RENDER) {
         console.log(str);
     }
+}
+
+function render() {
+    if(!RENDER) {
+        return;
+    }
+    console.log("\n\n\n\n\n\n\n")
+    var field = "";
+    for(var x = 0; x < 50; x++) {
+        if(Math.abs(x*2-Position.N.centerPos) <= 10) {
+            field = field + "#";
+        } else {
+            field = field + " ";
+        }
+    }
+    field = field + "\n"
+    for(var y = 0; y < 25; y++) {
+        var row = "";
+        for(var x = 0; x < 50; x++) {
+            if(parseInt(Ball.x/2.0) == x && parseInt(Ball.y/4.0) == y) {
+                row = row + "O";       
+            } else {
+                row = row + ".";
+            }
+        }
+        field = field + row + "\n"
+    }
+    for(var x = 0; x < 50; x++) {
+        if(Math.abs(x*2-Position.S.centerPos) <= 10) {
+            field = field + "#";
+        } else {
+            field = field + " ";
+        }
+    }
+    console.log(field);
 }
