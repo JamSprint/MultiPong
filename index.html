@@ -18,11 +18,13 @@
     }
   </style>
 
+  <script src="https://unpkg.com/vue"></script>
+
 </head>
 
 <body>
 
-  <div class="container">
+  <div id="multipong" class="container">
 
     <!-- Headline -->
     <div class="row">
@@ -31,15 +33,36 @@
       </div>
     </div>
 
-
+    <!-- Welcome button -->
     <div class="row">
-      <div class="column mp-typography--text__center">
-          <a class="button" href="#">Join a game</a>
+      <div class="column">
+        <form id="registration">
+          <fieldset>
+            <label for="name">Name</label>
+            <input type="text" placeholder="1337 gamer" id="name" v-model="player">
+            <input class="button-primary" type="submit" value="Join a game"  v-on:click="joinGame">
+          </fieldset>
+        </form>
       </div>
     </div>
-  </div>
 
-  <script src="https://unpkg.com/vue"></script>
+    <script>
+
+      var app = new Vue({
+        el: '#multipong',
+        data: {
+          player: ''
+        },
+        methods: {
+          joinGame: function () {
+            alert('Joining the game ...')
+          }
+        }
+      });
+
+    </script>
+
+  </div>
 </body>
 
 </html>
