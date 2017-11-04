@@ -30,9 +30,11 @@
     "babel-preset-env": "^1.6.1",
     "express": "^4.16.2",
     "ng-annotate": "^1.2.2",
+    "ng-redux": "^3.5.2",
+    "redux": "^3.7.2",
+    "socket.io": "^2.0.4",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4",
-    "socket.io": "^2.0.4"
+    "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
