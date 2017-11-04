@@ -6,9 +6,9 @@ export default /* @ngInject */ (socket) => {
         link: ($scope, element, attr) => {
 
             $scope.join = () => {
-                socket.connect({
-                    'test': 'test'
-                });
+                if ($scope.player) {
+                    socket.join($scope.player);
+                }
             }
         }
     };

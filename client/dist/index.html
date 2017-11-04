@@ -34,11 +34,11 @@
     <!-- Welcome button -->
     <div class="row">
       <div class="column">
-        <form class="join" id="registration">
+        <form ng-submit="join()" class="join" id="registration">
           <fieldset>
             <label for="name">Name</label>
-            <input type="text" placeholder="1337 gamer" id="name" v-model="player">
-            <input class="button-primary" type="submit" value="Join a game"  data-ng-click="join()">
+            <input type="text" placeholder="1337 gamer" id="name" data-ng-model="player">
+            <input class="button-primary" type="submit" value="Join a game">
           </fieldset>
         </form>
       </div>

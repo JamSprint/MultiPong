@@ -44505,20 +44505,30 @@ exports.default = function () {
 
     var socket = void 0;
 
+    var _join = function _join(name) {
+        console.log(name);
+
+        socket.emit('join', name);
+    };
+
     var setupServerConnection = function setupServerConnection() {
         socket = (0, _socket2.default)('http://192.168.1.233:3000');
     };
 
     var setupServerCallbacks = function setupServerCallbacks() {
         alert('handle server callbacks');
+
+        socket.on('gameState', function (state) {});
     };
 
     return {
-        connect: function connect() {
+        join: function join(name) {
 
             if (!socket) {
                 setupServerConnection();
                 setupServerCallbacks();
+
+                _join(name);
             } else {
                 alert('already connected, bail');
             }
@@ -47650,9 +47660,9 @@ exports.default = /* @ngInject */function (socket) {
         link: function link($scope, element, attr) {
 
             $scope.join = function () {
-                socket.connect({
-                    'test': 'test'
-                });
+                if ($scope.player) {
+                    socket.join($scope.player);
+                }
             };
         }
     };
