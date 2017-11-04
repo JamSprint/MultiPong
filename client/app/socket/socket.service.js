@@ -1,8 +1,11 @@
 import io from 'socket.io-client';
+import {
+    UPDATE
+} from '../reducers/game.state';
 
 const SERVER_URL = 'http://192.168.1.233:3000';
 
-export default () => {
+export default /* @ngInject */ ($ngRedux) => {
 
     let socket;
 
@@ -19,7 +22,12 @@ export default () => {
     };
 
     const setupServerCallbacks = () => {
-        socket.on('gameState', (state) => {});
+        socket.on('gameState', (state) => {
+            $ngRedux.dispatch({
+                type: UPDATE,
+                payload: state
+            });
+        });
     };
 
     return {

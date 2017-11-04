@@ -1,9 +1,12 @@
 export const UPDATE = 'GAME-STATE-UPDATE';
 
-export default function counter(state = {}, action) {
+export default function gameState(state = {}, action) {
     switch (action.type) {
     case UPDATE:
-        return JSON.parse(JSON.stringify(state));
+        if (action.payload) {
+            return JSON.parse(JSON.stringify(action.payload));
+        }
+        return state;
     default:
         return state;
     }

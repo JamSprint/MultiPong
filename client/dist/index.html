@@ -16,6 +16,25 @@
     .mp-typography--text__center {
         text-align: center;
     }
+
+    .mp-board {
+        height: 600px;
+        width: 600px;
+        color: white;
+        background-color: black;
+        margin: 0 auto;
+    }
+
+    .mp-ball {
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      background-color: white;
+      top: 0;
+      left: 0;
+    }
+
   </style>
 
 </head>
@@ -31,7 +50,31 @@
       </div>
     </div>
 
-    <!-- Welcome button -->
+    <!-- Board -->
+    <div class="row">
+      <div class="column">
+        <div class="mp-board">
+
+          <!-- Ball -->
+          <div class="mp-ball"></div>
+
+          <!-- Player West -->
+          <div class="mp-player" data-position="west"></div>
+
+          <!-- Player North -->
+          <div class="mp-player" data-position="north"></div>
+
+          <!-- Player East -->
+          <div class="mp-player" data-position="east"></div>
+
+          <!-- Player -->
+          <div class="mp-player" data-position="south"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Join button -->
     <div class="row">
       <div class="column">
         <form ng-submit="join()" class="join" id="registration">
