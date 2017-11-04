@@ -3,6 +3,7 @@ import {Score} from './score';
 
 const app = require('express')();
 const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const port = 3000;
 
 app.get('/', function(req, res){
@@ -14,6 +15,10 @@ app.get('/', function(req, res){
         "<br>" +
         "score: " + JSON.stringify(Score)
     );
+});
+
+io.on('connection', function(socket){
+    console.log('a user connected on socket: ' + socket);
 });
 
 http.listen(port, (err) => {
