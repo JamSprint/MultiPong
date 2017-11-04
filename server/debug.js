@@ -1,2 +1,2 @@
-export let DEBUG = true;
+export let DEBUG = false;
 export let RENDER = false;
