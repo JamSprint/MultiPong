@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket){
     console.log('a user connected');
     socket.broadcast.emit(broadcastGameState());
-    socket.on('request game state', function(getGameState){
+    socket.on('getGameState', function(){
         socket.broadcast.emit(broadcastGameState());
         console.log('Sending game state');
     });
