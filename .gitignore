@@ -4,3 +4,4 @@ node_modules
 *.iml
 dist/*.js
 npm-debug.log
+client/dist/bundle.js
