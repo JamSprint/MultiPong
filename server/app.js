@@ -1,4 +1,4 @@
-import {Ball, moveBall} from './js/ball';
+import {Ball, moveBall} from 'ball';
 
 const app = require('express')();
 const http = require('http').Server(app);

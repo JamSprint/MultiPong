@@ -11,7 +11,7 @@ var points = {
     right: 0,
     left: 0,
     down: 0
-}
+};
 
 reset();
 setInterval(moveBall, 33); // 33 milliseconds = ~ 30 frames per sec
