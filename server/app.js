@@ -19,6 +19,9 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     console.log('a user connected on socket: ' + socket);
+    socket.on('disconnect', function(){
+        console.log('user disconnected on socket: ' + socket);
+    });
 });
 
 http.listen(port, (err) => {
