@@ -4,13 +4,12 @@ import {Players} from "./players";
 
 function createGameState() {
     if (Ball === undefined || Ball === null) {
-        console.log(Ball);
         return {}
     } else if (Position === undefined || Position === null) {
         return {}
     }
     return {
-        ballPosition: createBallPosition(Ball),
+        ballPosition: createBall(Ball),
         playerPositionSouth: createPlayerPosition(Position.S),
         playerPositionWest: createPlayerPosition(Position.W),
         playerPositionNorth: createPlayerPosition(Position.N),
@@ -22,8 +21,9 @@ function playerExists(player) {
     return player !== null;
 }
 
-function createBallPosition(ball) {
+function createBall(ball) {
     return {
+        size: ball.rad,
         x: ball.x,
         y: ball.y
     }
