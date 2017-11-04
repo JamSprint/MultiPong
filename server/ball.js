@@ -1,9 +1,9 @@
-import {addPlayer, removePlayer} from './game';
+import {addPlayer, removePlayer, movePlayer} from './game';
 import {Position} from "./position";
 import {Players} from "./players";
 
-var DEBUG = false;
-var RENDER = false;
+var DEBUG = true;
+var RENDER = true;
 
 export const Ball = {
     x: 50.0,
@@ -17,15 +17,15 @@ resetPlayers();
 reset();
 setInterval(moveBall, 33); // 33 milliseconds = ~ 30 frames per sec
 if(DEBUG) {
-    setInterval(movePlayer, 100);
+    setInterval(moveDebugPlayer, 100);
 }
 
 function resetPlayers() {
     if (DEBUG) {
-        removePlayer("Aaron");
-        removePlayer("Martin");
-        addPlayer("Aaron");
-        addPlayer("Martin");
+        removePlayer("0");
+        removePlayer("1");
+        addPlayer("0", "Aaron");
+        addPlayer("1", "Martin");
     }    
 }
 
@@ -46,8 +46,15 @@ function reset() {
     log("\t\t" + JSON.stringify(Players));
 }
 
-function movePlayer() {
-
+function moveDebugPlayer() {
+    for(var i = 0; i < Players.length; i++) {
+        let p = Players[i];
+        if(p.centerPos < Ball.x && p.centerPos < 90 ) {
+            movePlayer(p.id, +1);
+        } else if (p.centerPos > Ball.x) {
+            movePlayer(p.id, -1);
+        }
+    }
 
 }
 
@@ -60,6 +67,7 @@ function moveBall() {
                 log("\tSAVE!!!!!");
                 Ball.xspeed = -1 * Ball.xspeed;
                 Ball.x = 100 - (Ball.x % 100);
+                accelerate();
             } else {
                 log("\tPoint!");
                 Position.E.score++;
@@ -77,6 +85,7 @@ function moveBall() {
                 log("\tSAVE!!!!!");
                 Ball.xspeed = -1 * Ball.xspeed;
                 Ball.x = (Ball.x % 100);
+                accelerate();
             } else {
                 log("\tPoint!");
                 Position.W.score++;
@@ -96,6 +105,7 @@ function moveBall() {
                 log("\tSAVE!!!!!");
                 Ball.yspeed = -1 * Ball.yspeed;
                 Ball.y = 100 - (Ball.y % 100);
+                accelerate();
             } else {
                 log("\tPoint!");
                 Position.N.score++;
@@ -113,6 +123,7 @@ function moveBall() {
                 log("\tSAVE!!!!!");
                 Ball.yspeed = -1 * Ball.yspeed;
                 Ball.y = (Ball.y % 100);
+                accelerate();
             } else {
                 log("\tPoint!");
                 Position.S.score++;
@@ -127,6 +138,11 @@ function moveBall() {
     render();
 }
 
+function accelerate() {
+    Ball.xspeed *= 1.1;
+    Ball.yspeed *= 1.1;
+}
+
 function log(str) {
     if (DEBUG && !RENDER) {
         console.log(str);
@@ -138,7 +154,7 @@ function render() {
         return;
     }
     console.log("\n\n\n\n\n\n\n")
-    var field = "";
+    var field = Position.N.name + ": " + Position.N.score + "\n";
     for(var x = 0; x < 50; x++) {
         if(Math.abs(x*2-Position.N.centerPos) <= 10) {
             field = field + "#";
@@ -146,17 +162,17 @@ function render() {
             field = field + " ";
         }
     }
-    field = field + "\n"
-    for(var y = 0; y < 25; y++) {
+    field = field + "\n";
+    for(var y = 24; y >= 0; y--) {
         var row = "";
         for(var x = 0; x < 50; x++) {
             if(parseInt(Ball.x/2.0) == x && parseInt(Ball.y/4.0) == y) {
-                row = row + "O";       
+                row = row + "O";
             } else {
                 row = row + ".";
             }
         }
-        field = field + row + "\n"
+        field = field + row + "\n";
     }
     for(var x = 0; x < 50; x++) {
         if(Math.abs(x*2-Position.S.centerPos) <= 10) {
@@ -165,5 +181,7 @@ function render() {
             field = field + " ";
         }
     }
+    field += "\n" + Position.S.name + ": " + Position.S.score;
     console.log(field);
+
 }
