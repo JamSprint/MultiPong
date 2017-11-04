@@ -1,3 +1,12 @@
+export const Players = []; //Player = {name: string, score: int}
+export const Position = {
+	S: null,
+	N: null,
+	E: null,
+	W: null,
+	queue: []
+};
+
 function ballOnBallCollide(ball1, ball2) {
     var distanceSquared = Math.pow((ball1.x-ball2.x), 2)+Math.pow((ball1.y-ball2.y), 2);
     var radiusesSquared = Math.pow(ball1.rad, 2) + Math.pow(ball2.rad,2);
@@ -40,3 +49,63 @@ function ballOnBallBounce(ball1, ball2) {
     return;
 }
 
+function addPlayer(name) {
+	var newPlayer = {
+		name: name,
+		score: 0
+	};
+	Players.push(newPlayer);
+	addPlayerToPosition(newPlayer);
+}
+
+function removePlayer(name) {
+	var index = -1;
+	for (var i = 0; i < Players.length; i++) {
+		if (Players[i].name == name) {
+			index = i;
+			removePlayerFromPosition(Players[i])
+			break;
+		}
+	}
+	if (index != -1) {
+		Players.splice(index, 1);
+	}
+}
+
+function removePlayerFromPosition(player) {
+	for(var i = 0; i < Position.queue.length; i++) {
+		if (Position.queue[i] == player) {
+			Position.queue.splice(i, 1);
+			return;
+		}
+	}
+
+	var newPlayer = null;
+	if (Position.queue.length > 0) {
+		newPlayer = Position.queue[0];
+		Position.queue.splice(0, 1);
+	}
+	if (Position.S == player) {
+		Position.S = newPlayer;
+	} else if (Position.N == player) {
+		Position.N = newPlayer;
+	} else if (Position.E == player) {
+		Position.E = newPlayer;
+	} else if (Position.W == player) {
+		Position.W = newPlayer;
+	}
+}
+
+function addPlayerToPosition(player) {
+	if (!Position.S) {
+		Position.S = player;
+	} else if (!Position.N) {
+		Position.N = player;
+	} else if (!Position.E) {
+		Position.E = player;
+	} else if (!Position.W) {
+		Position.W = player;
+	} else {
+		Position.queue.push(player);
+	}
+}

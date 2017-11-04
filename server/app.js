@@ -1,5 +1,5 @@
 import {Ball, moveBall} from './ball';
-import {Score} from './score';
+import {Players} from './game';
 
 const app = require('express')();
 const http = require('http').Server(app);
@@ -13,7 +13,7 @@ app.get('/', function(req, res){
         ", xspeed: " + Ball.xspeed +
         ", yspeed: " + Ball.yspeed +
         "<br>" +
-        "score: " + JSON.stringify(Score)
+        "score: " + JSON.stringify(Players)
     );
 });
 

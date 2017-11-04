@@ -1,4 +1,4 @@
-import {Score} from './score';
+import {Position} from './game';
 
 export const Ball = {
     x: 50.0,
@@ -21,23 +21,38 @@ function reset() {
 function moveBall() {
     Ball.x = Ball.x + Ball.xspeed;
     if (Ball.x > 100) {
-        if(true) { //right side has player
-            Score.right++;
+        if(Position.E) { 
+            Position.E.score++;
             reset();
         } else {
             Ball.xspeed = -1 * Ball.xspeed;
             Ball.x = 100 - (Ball.x % 100);
         }
     } else if (Ball.x < 0) {
-        Ball.xspeed = -1 * Ball.xspeed;
-        Ball.x = (Ball.x % 100);
+        if(Position.W) {
+            Position.W.score++;
+            reset();
+        } else {
+            Ball.xspeed = -1 * Ball.xspeed;
+            Ball.x = (Ball.x % 100);
+        }
     }
     Ball.y = Ball.y + Ball.yspeed;
     if (Ball.y > 100) {
-        Ball.yspeed = -1 * Ball.yspeed;
-        Ball.y = 100 - (Ball.y % 100);
+        if(Position.N) { 
+            Position.N.score++;
+            reset();
+        } else {
+            Ball.yspeed = -1 * Ball.yspeed;
+            Ball.y = 100 - (Ball.y % 100);
+        }
     } else if (Ball.y < 0) {
-        Ball.yspeed = -1 * Ball.yspeed;
-        Ball.y = (Ball.y % 100);
+        if(Position.S) { 
+            Position.S.score++;
+            reset();
+        } else {
+            Ball.yspeed = -1 * Ball.yspeed;
+            Ball.y = (Ball.y % 100);
+        }
     }
 }
